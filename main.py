@@ -6,26 +6,60 @@ import datetime
 engine = create_engine("sqlite:///bets.db")
 
 def generate_data():
-    data = [
-        {
-            "match": "Arsenal vs Chelsea",
-            "home_prob": 0.62,
-            "draw_prob": 0.20,
-            "away_prob": 0.18,
-            "odds_home": 2.10,
-            "odds_draw": 3.40,
-            "odds_away": 3.20,
-        },
-        {
-            "match": "Lakers vs Celtics",
-            "home_prob": 0.58,
-            "draw_prob": 0.00,
-            "away_prob": 0.42,
-            "odds_home": 1.95,
-            "odds_draw": 0.00,
-            "odds_away": 2.10,
-        }
+    teams = [
+        "Arsenal", "Chelsea", "Liverpool", "City",
+        "Barcelona", "Real Madrid", "PSG", "Bayern"
     ]
+
+    nba_teams = [
+        "Lakers", "Celtics", "Warriors", "Bulls"
+    ]
+
+    data = []
+
+    # Futebol
+    for i in range(0, len(teams), 2):
+        home = teams[i]
+        away = teams[i+1]
+
+        home_prob = np.random.uniform(0.4, 0.7)
+        draw_prob = np.random.uniform(0.1, 0.3)
+        away_prob = 1 - home_prob - draw_prob
+
+        odds_home = round(np.random.uniform(1.5, 3.0), 2)
+        odds_draw = round(np.random.uniform(2.5, 4.0), 2)
+        odds_away = round(np.random.uniform(2.0, 4.0), 2)
+
+        data.append({
+            "match": f"{home} vs {away}",
+            "home_prob": home_prob,
+            "draw_prob": draw_prob,
+            "away_prob": away_prob,
+            "odds_home": odds_home,
+            "odds_draw": odds_draw,
+            "odds_away": odds_away,
+        })
+
+    # NBA
+    for i in range(0, len(nba_teams), 2):
+        home = nba_teams[i]
+        away = nba_teams[i+1]
+
+        home_prob = np.random.uniform(0.4, 0.65)
+        away_prob = 1 - home_prob
+
+        odds_home = round(np.random.uniform(1.7, 2.2), 2)
+        odds_away = round(np.random.uniform(1.7, 2.2), 2)
+
+        data.append({
+            "match": f"{home} vs {away}",
+            "home_prob": home_prob,
+            "draw_prob": 0.0,
+            "away_prob": away_prob,
+            "odds_home": odds_home,
+            "odds_draw": 0.0,
+            "odds_away": odds_away,
+        })
 
     df = pd.DataFrame(data)
 
