@@ -49,4 +49,4 @@ df.to_sql("bets", engine, if_exists="append", index=False)
 print("Dados salvos com sucesso!")
 
 if __name__ == "__main__":
-run()
+def run()
