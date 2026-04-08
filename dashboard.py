@@ -29,3 +29,11 @@ try:
 except Exception as e:
     st.warning("Banco ainda não criado ou erro:")
     st.text(str(e))
+    
+    import os
+
+st.markdown("## ⚙️ Atualização de Dados")
+
+if st.button("🔄 Gerar / Atualizar Dados"):
+    os.system("python main.py")
+    st.success("Dados atualizados com sucesso!")
